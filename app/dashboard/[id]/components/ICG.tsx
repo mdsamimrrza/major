@@ -19,17 +19,23 @@ const JavaToAssembly: React.FC<JavaToAssemblyProps> = ({ code: sourceCode, langu
   const generateAssembly = async () => {
     setLoading(true)
     setAssemblyCode('')
-    const inputPrompt = `Convert the following ${languageLabel} code into single-pass Assembly-like intermediate representation.
+    const inputPrompt = `Convert the following ${languageLabel} code into minimal, clean single-pass intermediate code representation.
+
 ${languageLabel} Code:
 ${sourceCode}
 
-Ensure that the result follows a single-pass compilation approach and adheres to standard Assembly syntax conventions for ${languageLabel}. Return the output strictly in the following JSON format without any additional text or code blocks:
+Requirements:
+- Output ONLY essential intermediate instructions (no comments or explanations)
+- Use concise syntax: variable assignments, function calls, control flow
+- Keep each line short and readable
+- Remove redundant operations
+- If there are errors, mention them at the top
+
+Return the output strictly in the following JSON format without any additional text or code blocks:
 
 {
-  "assembly": "Generated Assembly code here."
-}
-
-Also analyze the code. If there are any errors mention them inside the assembly field itself.`
+  "assembly": "Minimal intermediate code here"
+}`
 
     try {
       const result: any = await chatSession.sendMessage(inputPrompt)

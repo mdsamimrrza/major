@@ -34,15 +34,24 @@ const JavaToThreePass: React.FC<JavaToThreePassProps> = ({ code, language }) => 
 
     const generateAssembly = async () => {
         setLoading(true);
-        const inputPrompt = `Convert the following ${languageLabel} code into three-pass Assembly language:\n  
-\n${languageLabel} Code:\n${code}\n  
-\nEnsure that the Assembly code follows a three-pass compilation approach and adheres to standard Assembly syntax for ${languageLabel}. If the code is highly complex (such as involving recursion, backtracking, or intricate logic), return a simplified gist of how the Assembly code would be structured, highlighting key sections like stack management, function calls, and loop handling.\n  
-\nReturn the output strictly in the following JSON format without any additional text or code blocks:\n  
-\n{  
-  "assembly": "Generated Assembly code here"  
-}\n  
-\nThis must ensure that the response is always in a strict JSON format without unnecessary text or formatting issues.
-`;
+        const inputPrompt = `Convert the following ${languageLabel} code into minimal, clean three-pass assembly code representation.
+
+${languageLabel} Code:
+${code}
+
+Requirements:
+- Output ONLY essential assembly instructions (no comments or explanations)
+- Use concise syntax: MOV, PUSH, POP, CALL, RET, JMP operations
+- Keep each instruction short and readable
+- Remove redundant operations
+- Three-pass approach: Pass 1 (labels), Pass 2 (symbols), Pass 3 (code generation)
+- If there are errors, mention them at the top
+
+Return the output strictly in the following JSON format without any additional text or code blocks:
+
+{
+  "assembly": "Minimal three-pass assembly code here"
+}`;
         try {
             const result = await chatSession.sendMessage(inputPrompt);
             const rawResponse = result.response.text();
