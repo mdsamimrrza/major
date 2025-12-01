@@ -29,15 +29,15 @@ Whether you're a student learning compiler design, an educator teaching programm
 
 - **📝 Lexical Analysis**: Real-time tokenization of Java code into keywords, operators, identifiers, and more
 - **🌳 Abstract Syntax Tree (AST)**: Interactive D3-powered tree visualization using ANTLR4 parser
-- **⚙️ Intermediate Code Generation**: AI-powered Java to Assembly conversion (single-pass)
-- **🎯 Code Optimization**: Three-pass optimization with detailed explanations
+- **⚙️ Intermediate Code Generation**: Minimal, clean single-pass intermediate code representation
+- **🎯 Three-Pass Assembly**: Optimized three-pass assembly code generation with labels, symbols, and code generation phases
 
 ### 🐍 Interpreter Visualization (Python & C++)
 
 - **📝 Lexical Analysis**: Token breakdown for Python and C++ source code
 - **🌳 Parse Tree**: AI-generated AST visualization
-- **💾 Bytecode Generation**: Python bytecode with detailed annotations
-- **🚀 Optimized Bytecode**: Performance-optimized bytecode with efficiency improvements
+- **💾 Bytecode Generation**: Minimal, clean Python bytecode representation with essential instructions only
+- **🚀 Optimized Bytecode**: Performance-optimized bytecode with redundant operations removed and combined instructions
 
 ### 💼 Session Management
 
@@ -231,6 +231,8 @@ Test files cover:
 - Compiler session CRUD operations
 - Interpreter session CRUD operations
 - API route functionality
+- Hydration mismatch fixes for Clerk components
+- Code generation output validation
 
 ## 🔧 Scripts
 
@@ -259,6 +261,18 @@ npm test            # Run tests
 - `PUT /api/saveInterpreter` - Update existing session
 - `GET /api/getInt?q={email}` - Get user's interpreter sessions
 - `DELETE /api/deleteInt?q={sessionId}` - Delete session
+
+## 📋 Recent Updates (v1.1.0)
+
+### Code Generation Improvements
+- **Minimal Output**: All code generation components now produce clean, minimal output without unnecessary explanations
+- **Intermediate Code Generation**: Generates concise single-pass intermediate code with essential instructions only
+- **Python Bytecode**: Produces minimal bytecode representation using LOAD, STORE, CALL, RETURN, JUMP operations
+- **Three-Pass Assembly**: Optimized three-pass assembly with proper label resolution and symbol table management
+
+### Bug Fixes
+- **Hydration Mismatch**: Fixed Next.js hydration errors with Clerk components using dynamic imports with `ssr: false`
+- **Component Mounting**: Added proper hydration guards to prevent server/client rendering mismatches
 
 ## ⚙️ Configuration
 
