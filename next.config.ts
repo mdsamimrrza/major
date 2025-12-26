@@ -10,7 +10,17 @@ const nextConfig: NextConfig = {
   },
   // Production optimizations
   productionBrowserSourceMaps: false,
-  // output: 'standalone', // Disabled for Vercel deployment
+  
+  // Image configuration
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+    ],
+    unoptimized: true, // Disable image optimization for Vercel deployment
+  },
   
   // Ignore TypeScript and ESLint during build
   typescript: { ignoreBuildErrors: true },
