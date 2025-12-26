@@ -1,4 +1,6 @@
 {
+  "buildCommand": "next build",
+  "installCommand": "npm install",
   "build": {
     "env": {
       "NODE_ENV": "production"
