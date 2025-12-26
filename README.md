@@ -90,8 +90,8 @@ Whether you're a student learning compiler design, an educator teaching programm
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/Aveek-Chakraborty/compiler-interpreter-visualiser.git
-cd compiler-interpreter-visualiser
+git clone https://github.com/mdsamimrrza/major.git
+cd compiler-interpreter-visualiser as major
 ```
 
 ### Step 2: Install Dependencies

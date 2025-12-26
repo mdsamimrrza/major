@@ -1,0 +1,24 @@
+# Dependencies and build
+node_modules/
+.next/
+
+# Environment
+.env*
+
+# Python files - completely ignored
+*.py
+__pycache__/
+venv/
+
+# Build outputs
+build/
+dist/
+
+# Logs and caches
+*.log
+.npm/
+.yarn/
+
+# System files
+.DS_Store
+Thumbs.db

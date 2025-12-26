@@ -108,10 +108,7 @@ class AnomalyDetectionModel:
 
 
 def load_model() -> AnomalyDetectionModel:
-    """
-    Future mein yahan se disk se saved model load kar sakta hai.
-    Abhi ke liye naya model return karte hain.
-    """
+   
     model = AnomalyDetectionModel()
     # optionally: pehle se dataset se train:
     df = model._load_dataset()
