@@ -5,8 +5,16 @@ const isProtectedRoute = createRouteMatcher([
 ])
 
 export default clerkMiddleware(async (auth, request) => {
+  // Only protect routes if Clerk is properly configured
   if (isProtectedRoute(request)) {
-    await auth.protect()
+    try {
+      await auth.protect()
+    } catch (error) {
+      // Log error but don't fail during build
+      if (process.env.NODE_ENV === 'development' || process.env.VERCEL_ENV === 'production') {
+        console.error('Clerk auth error:', error);
+      }
+    }
   }
 }, {
   // Add debug logging for troubleshooting

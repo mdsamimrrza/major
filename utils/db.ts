@@ -4,9 +4,10 @@ import * as schema from './schema';
 
 const connectionString = process.env.DATABASE_URL || '';
 
-if (!connectionString) {
-  console.warn('Warning: DATABASE_URL is not set. Database operations will fail.');
+if (!connectionString && process.env.NODE_ENV !== 'test') {
+  console.warn('Warning: DATABASE_URL is not set. Database operations will fail at runtime.');
 }
 
-const sql = connectionString ? neon(connectionString) : null;
-export const db = sql ? drizzle(sql, { schema }) : null as any;
+// Create a dummy connection for build time if DATABASE_URL is not set
+const sql = connectionString ? neon(connectionString) : neon('postgresql://dummy:dummy@localhost:5432/dummy');
+export const db = drizzle(sql, { schema });

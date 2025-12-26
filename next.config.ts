@@ -16,8 +16,11 @@ const nextConfig: NextConfig = {
   typescript: { ignoreBuildErrors: true },
   eslint: { ignoreDuringBuilds: true },
   
+  // Skip trailing slash redirect for API routes
+  skipTrailingSlashRedirect: true,
+  
   // Webpack configuration for path aliases
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': path.resolve(__dirname),
@@ -26,6 +29,18 @@ const nextConfig: NextConfig = {
       '@/app': path.resolve(__dirname, 'app'),
       '@/lib': path.resolve(__dirname, 'lib'),
     };
+    
+    // Ignore optional dependencies that might cause build issues
+    if (isServer) {
+      config.externals = config.externals || [];
+      if (Array.isArray(config.externals)) {
+        config.externals.push({
+          'utf-8-validate': 'commonjs utf-8-validate',
+          'bufferutil': 'commonjs bufferutil',
+        });
+      }
+    }
+    
     return config;
   },
   
