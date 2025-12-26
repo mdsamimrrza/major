@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
   },
   // Production optimizations
   productionBrowserSourceMaps: false,
-  output: 'standalone',
+  // output: 'standalone', // Disabled for Vercel deployment
   
   // Ignore TypeScript and ESLint during build
   typescript: { ignoreBuildErrors: true },
