@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import path from 'path';
 
 const nextConfig: NextConfig = {
   // Server actions configuration
@@ -14,6 +15,19 @@ const nextConfig: NextConfig = {
   // Ignore TypeScript and ESLint during build
   typescript: { ignoreBuildErrors: true },
   eslint: { ignoreDuringBuilds: true },
+  
+  // Webpack configuration for path aliases
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname),
+      '@/components': path.resolve(__dirname, 'components'),
+      '@/utils': path.resolve(__dirname, 'utils'),
+      '@/app': path.resolve(__dirname, 'app'),
+      '@/lib': path.resolve(__dirname, 'lib'),
+    };
+    return config;
+  },
   
   // CORS headers for API routes
   async headers() {
