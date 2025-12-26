@@ -1,10 +1,10 @@
 import { GoogleGenAI } from "@google/genai";
 
 const apiKey =
-  process.env.NEXT_PUBLIC_GEMINI_API_KEY ?? process.env.GEMINI_API_KEY;
+  process.env.NEXT_PUBLIC_GEMINI_API_KEY ?? process.env.GEMINI_API_KEY ?? '';
 
 if (!apiKey) {
-  throw new Error("GEMINI_API_KEY is not set");
+  console.warn("Warning: GEMINI_API_KEY is not set. API calls will fail.");
 }
 
 const defaultModel =
@@ -17,7 +17,7 @@ const additionalModels =
   process.env.GEMINI_MODELS ??
   "";
 
-const client = new GoogleGenAI({ apiKey });
+const client = apiKey ? new GoogleGenAI({ apiKey }) : null;
 
 const resolveModel = (model?: string) =>
   model?.trim() || defaultModel;
@@ -123,6 +123,10 @@ export const generateContent = async (
   model?: string,
   attempts: number = DEFAULT_RETRY_ATTEMPTS
 ) => {
+  if (!client) {
+    throw new Error('Gemini API client is not initialized. Please set GEMINI_API_KEY environment variable.');
+  }
+
   const candidates = getModelCandidates(model);
 
   let lastError: Error | null = null;
